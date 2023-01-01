@@ -8,6 +8,8 @@ import {
     UserOutlined,
 } from '@ant-design/icons';
 import {Breadcrumb, Layout, Menu, theme} from 'antd';
+import {DatePicker, message} from 'antd';
+
 const {Header, Content, Footer, Sider} = Layout;
 function getItem(label, key, icon, children) {
     return {
@@ -36,6 +38,14 @@ const App = () => {
     const {
         token: {colorBgContainer},
     } = theme.useToken();
+
+    const [date, setDate] = useState(null);
+    const handleChange = (value) => {
+        message.info(
+            `Selected Date: ${value ? value.format('YYYY-MM-DD') : 'None'}`
+        );
+        setDate(value);
+    };
     return (
         <Layout
             style={{
@@ -89,6 +99,13 @@ const App = () => {
                         }}
                     >
                         Bill is a cat.
+                        <div style={{width: 400, margin: '100px auto'}}>
+                            <DatePicker onChange={handleChange} />
+                            <div style={{marginTop: 16}}>
+                                Selected Date:{' '}
+                                {date ? date.format('YYYY-MM-DD') : 'None'}
+                            </div>
+                        </div>
                     </div>
                 </Content>
                 <Footer
